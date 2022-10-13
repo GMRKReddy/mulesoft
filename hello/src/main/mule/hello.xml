@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e611b4e8-5d2d-4a18-9a2b-ddd4f11bfff7" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="a8a38592-5cd9-49d6-a62c-e561eed72f1d" />
+	<flow name="helloFlow" doc:id="542cad2e-e8a1-4082-a9ed-e9c6f20f31e9" >
+		<http:listener doc:name="Listener" doc:id="c134a475-89df-4ac3-a176-d3fa0d2acc04" config-ref="HTTP_Listener_config" path="/file"/>
+		<file:read doc:name="reading a file from the local machine" doc:id="a466f9cd-ec67-42ca-a4db-baf05f6bb789" config-ref="File_Config" path="C:\Users\DELL\Desktop\MuleSoft pdf\aa.txt"/>
+		<file:rename doc:name="Rename" doc:id="255df6bd-76ae-4058-8040-a60741f9b381" config-ref="File_Config" path="C:\Users\DELL\Desktop\MuleSoft pdf" to="ramana"/>
+		<file:write doc:name="Write" doc:id="9d64c1a4-92c1-49b7-a590-f7c7a1deb12c" config-ref="File_Config" path="C:\Users\DELL\Desktop\MuleSoft pdf\aaa"/>
+		<logger level="INFO" doc:name="Logger" doc:id="1b30d1b5-c745-43fc-b9b4-a30d03a64b32" message="#[payload]"/>
+	</flow>
+</mule>
